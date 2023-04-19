@@ -1,8 +1,8 @@
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {createStackNavigator} from "@react-navigation/stack";
 import {MaterialIcons} from "@expo/vector-icons";
+import {Text, View} from "react-native";
 
 import HomeScreen from "./screens/HomeScreen";
 import CreateScreen from "./screens/CreateScreen";
@@ -10,47 +10,36 @@ import ExploreScreen from "./screens/ExploreScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-function HomeStack() {
+const CustomHeader = () => {
 	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Home" component={HomeScreen} />
-		</Stack.Navigator>
+		<View
+			style={{
+				height: 100,
+				justifyContent: "flex-end",
+				alignItems: "center",
+				backgroundColor: "blue",
+			}}>
+			<Text
+				style={{
+					fontSize: 24,
+					marginBottom: 10,
+					marginLeft: 10,
+					// fontFamily: "Liquido",
+				}}>
+				What's Turning?
+			</Text>
+		</View>
 	);
-}
-
-function CreateStack() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Create" component={CreateScreen} />
-		</Stack.Navigator>
-	);
-}
-
-function ExploreStack() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Explore" component={ExploreScreen} />
-		</Stack.Navigator>
-	);
-}
-
-function ProfileStack() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Profile" component={ProfileScreen} />
-		</Stack.Navigator>
-	);
-}
+};
 
 export default function App() {
 	return (
 		<NavigationContainer>
 			<Tab.Navigator
 				screenOptions={({route}) => ({
-					activeTintColor: "tomato",
-					inactiveTintColor: "gray",
+					header: () => <CustomHeader />,
+					tabBarInactiveTintColor: "black",
 					tabBarIcon: ({color, size}) => {
 						let iconName;
 
@@ -73,10 +62,10 @@ export default function App() {
 						);
 					},
 				})}>
-				<Tab.Screen name="Home" component={HomeStack} />
-				<Tab.Screen name="Create" component={CreateStack} />
-				<Tab.Screen name="Explore" component={ExploreStack} />
-				<Tab.Screen name="Profile" component={ProfileStack} />
+				<Tab.Screen name="Home" component={HomeScreen} />
+				<Tab.Screen name="Create" component={CreateScreen} />
+				<Tab.Screen name="Explore" component={ExploreScreen} />
+				<Tab.Screen name="Profile" component={ProfileScreen} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);
